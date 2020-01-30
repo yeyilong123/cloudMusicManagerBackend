@@ -1,6 +1,7 @@
 const Router = require('koa-router')
 const router = new Router()
 const callCloudFn = require('../utils/callCloudFn')
+const callCloudDB = require('../utils/callCloudDB')
 // get post
 router.get('/list', async (ctx, next) => {
     const query = ctx.request.query
@@ -19,5 +20,14 @@ router.get('/list', async (ctx, next) => {
     }
 })
 
+router.get('/getById', async(ctx, next)=>{
+    const query = `db.collection('playlist').doc('${ctx.request.query.id}').get()`
+    const res = await callCloudDB(ctx, 'databasequery', query)
+    ctx.body = {
+        code: 20000,
+        data: JSON.parse(res.data)
+    }
+})
 
+router.post('/updatePlaylist', async)
 module.exports = router

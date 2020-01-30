@@ -4,10 +4,15 @@ const Router = require('koa-router')
 const router = new Router()
 const cors = require('koa2-cors')
 const ENV = 'test-yezi-test'
+const koaBody = require('koa-body')
 
 app.use(cors({
     origin: ['http://localhost:9528'],
     credentials: true
+}))
+
+app.use(koaBody({
+    multipart: true,
 }))
 
 app.use(async (ctx, next)=>{
