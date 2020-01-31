@@ -58,6 +58,25 @@ const cloudStorage = {
         }
         await rp(params)
         return info.file_id
+    },
+
+    async delete(ctx, fileid_list){
+        const ACCESS_TOKEN = await getAccessToken()
+        const options = {
+            method: 'POST',
+            uri: `https://api.weixin.qq.com/tcb/batchdeletefile?access_token=${ACCESS_TOKEN}`,
+            body: {
+                env: ctx.state.env,
+                fileid_list: fileid_list
+            },
+            json: true
+        }
+
+        return await rp(options).then((res)=>{
+            return res
+        }).catch((err)=>{
+            console.log(err)
+        })
     }
 }
 
