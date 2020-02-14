@@ -16,13 +16,18 @@ router.get('/list', async(ctx, next)=>{
     }
     let returnData = []
     const dlRes = await cloudStorage.download(ctx, fileList)
-    for(let i=0, len=dlRes.file_list.length; i < len; i++){
-        returnData.push({
-            download_url: dlRes.file_list[i].download_url,
-            fileid: dlRes.file_list[i].fileid,
-            _id: JSON.parse(data[i])._id
-        })
+    if(JSON.stringify(dlRes) == '{}'){
+        returnData = []
+    }else{
+        for(let i=0, len=dlRes.file_list.length; i < len; i++){
+            returnData.push({
+                download_url: dlRes.file_list[i].download_url,
+                fileid: dlRes.file_list[i].fileid,
+                _id: JSON.parse(data[i])._id
+            })
+        }
     }
+    
 
 
     ctx.body = {
