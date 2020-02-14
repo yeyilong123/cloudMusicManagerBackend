@@ -7,8 +7,6 @@ const ENV = 'test-yezi-test'
 const koaBody = require('koa-body')
 
 app.use(cors({
-    origin: ['http://localhost:9528'],
-    credentials: true
 }))
 
 app.use(koaBody({
@@ -34,6 +32,6 @@ app.use(router.allowedMethods())
 
 
 
-app.listen(3000, ()=>{
-    console.log('开启3000')
+app.listen(3001, ()=>{
+    console.log('开启3001')
 })
